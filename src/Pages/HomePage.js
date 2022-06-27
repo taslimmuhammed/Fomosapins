@@ -7,17 +7,22 @@ import { Col ,Row} from 'react-bootstrap'
 import fomosapien from '../images/Fomo_logo.png'
 function HomePage() {
   const navigate  = useNavigate()
-  const {buyingProcess,getCurrentPrice,userBalnce,getUserBalance} = useContext(EthersContext)
+  const {buyingProcess,getCurrentPrice,checkIfWalletIsConnect,getUserBalance} = useContext(EthersContext)
 const [isLoading, setisLoading] = useState(false)
 const [Price, setPrice] = useState(0)
 const initiator = async()=>{
 setisLoading(true)
+const  s1 = await checkIfWalletIsConnect()
+if(s1===0){
+ navigate("/landing")
+}else{
 let y = await getUserBalance()
 console.log(y)
 if(y!=0 && y!=null) navigate('/view')
 const x = await getCurrentPrice()
 console.log(x)
 if(x) setPrice(x)
+}
 setisLoading(false)
 }
 const handleClick = async()=>{
