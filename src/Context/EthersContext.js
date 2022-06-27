@@ -78,12 +78,10 @@ export default function Ethers({children}){
           console.log("hello")
           const accounts = await ethereum.request({method: "eth_accounts"})
           const account  = accounts[0]
-          
           const s1 = await SellerContract.owned(account)
           let x =  parseInt(s1._hex, 16)
           return x;
         }catch(e){
-          alert("error getting NFT")
         }
         return 0
       }

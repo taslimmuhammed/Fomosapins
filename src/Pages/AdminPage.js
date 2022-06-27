@@ -7,22 +7,17 @@ import '../Styles/Admin.css'
 function Admin() {
 const navigate  = useNavigate()
 const [isLoading, setisLoading] = useState(false)
-const { changePrice,getCurrentPrice,changeOwner,checkOwner,getContractBalance} = useContext(EthersContext)
+const { changePrice,getCurrentPrice,changeOwner,checkOwner,getContractBalance,checkIfWalletIsConnect} = useContext(EthersContext)
 const [Address, setAddress] = useState()
 const [Price, setPrice] = useState(0)
 const [Balance, setBalance] = useState(0)
 const [Price2, setPrice2] = useState()
-// const [Tokens, setTokens] = useState()
-// const transferToContract1 = async()=>{
-//     setisLoading(true)
-//     const str = Tokens
-//     const result = str.split(/[, ]+/);
-//     console.log(result); 
-//    await transferToContract(result)
-//    setisLoading(false)
-//    initiator()
-// }
+
 const initiator = async()=>{
+    const  s1 = await checkIfWalletIsConnect()
+    if(s1===0){
+     navigate("/landing")
+    }else{
     setisLoading(true)
     try{
      const v = await checkOwner()
@@ -39,6 +34,7 @@ const initiator = async()=>{
         alert(e)
     }
     setisLoading(false)
+}
 }
 
 const changeOwner1=async()=>{
